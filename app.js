@@ -4,7 +4,8 @@
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , database = require('./lib/database');
 
 var app = module.exports = express.createServer();
 
@@ -25,13 +26,15 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-// Routes
+app.use(database);
 
-//app.post('/', routes.index);
-app.post('/vote', function(req, res) {
-    // insert into db
-    res.send('ahh');
-    //res.render('index.html')
+// Routes
+app.post('/lodgeVote', function(req, res) {
+    req.body.ip = req.connection.remoteAddress;
+    database.createVote(req.body, function(data) {
+        var result = data ? true : false;
+        res.send(result);
+    });
 });
 
 app.listen(3000, function(){

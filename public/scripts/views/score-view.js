@@ -17,7 +17,12 @@ define([
           channel.on('voteLodged', function() {
               var topic = self.$el.find('input');
               if (topic.is(':checked')) {
-                  self.model.vote();
+                  self.model.vote(function(result){
+                      if (result) { 
+                          self.$el.addClass('success'); 
+                          $('.submitVote').fadeOut('slow'); 
+                      }
+                  });
               }
           });
       },
