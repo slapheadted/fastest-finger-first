@@ -1,0 +1,6 @@
+.voteWrapper th.vote {
+    width: 60px;
+}
+.voteWrapper button.submitVote {
+    width: 72px;
+}
