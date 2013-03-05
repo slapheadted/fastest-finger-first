@@ -1,1 +1,0 @@
-<td class="text-center"><%= model.getPosition() %></td><td><%= model.get('name') %></td><td class="text-center"><%= model.get('tally') %></td><td class="text-center"><input type="radio" name="vote" value="<% model._id %>" /></td>

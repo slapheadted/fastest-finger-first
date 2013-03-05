@@ -1,19 +1,31 @@
 [
     {
-        "id": 1,
         "name": "An introduction to Express",
-        "tally": 2
+        "description": "Express is almost always the first framework a Node noob encounters - and there's good reason why.",
+        "active": true,
+        "category": "express",
+        "speaker": "Chris Saunders",
+        "dateActive": new Date()
     },{
-        "id": 2,
         "name": "Streams: What's all that about?",
-        "tally": 5
+        "description": "Pipe anything into Node.",
+        "active": true,
+        "category": "streams",
+        "speaker": "Chris Saunders",
+        "dateActive": new Date()
     },{
-        "id": 3,
         "name": "Mastering Socket IO",
-        "tally": 0
+        "description": "Web sockets are a big thing and Node supports them!",
+        "active": true,
+        "category": "socket.io",
+        "speaker": "Chris Saunders",
+        "dateActive": new Date()
     },{
-        "id": 4,
         "name": "Modularize your code",
-        "tally": 4
+        "description": "Start early",
+        "active": true,
+        "category": "misc",
+        "speaker": "Chris Saunders",
+        "dateActive": new Date()
     }
 ]

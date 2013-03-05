@@ -2,9 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/scoreBoard-view',
+  'views/topicVoting-view',
   'text!templates/home'
-], function( $, _, Backbone, ScoreBoardView, HomeTpl) {
+], function( $, _, Backbone, TopicVotingView, HomeTpl) {
 
   var HomeView = Backbone.View.extend({
   
@@ -15,8 +15,8 @@ define([
       
       render: function() {
           $('.container').html(this.template());
-          var scoreBoard = new ScoreBoardView();
-          $('.nextTalk').after(scoreBoard.el);
+          var topicVoting = new TopicVotingView();
+          $('.nextTalk').after(topicVoting.el);
           return this;
       }
       

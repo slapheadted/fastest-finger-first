@@ -4,10 +4,15 @@
  */
 
 var express = require('express')
+  , io = require('socket.io');
+
+var app = express()
+  , server = require('http').createServer(app)
+  , io = io.listen(server)
   , routes = require('./routes')
   , database = require('./lib/database');
 
-var app = module.exports = express.createServer();
+server.listen(3000);
 
 // Configuration
 
@@ -29,14 +34,27 @@ app.configure('production', function(){
 app.use(database);
 
 // Routes
-app.post('/lodgeVote', function(req, res) {
+app.post('/vote', function(req, res) {
     req.body.ip = req.connection.remoteAddress;
     database.createVote(req.body, function(data) {
-        var result = data ? true : false;
-        res.send(result);
+        data = data || false;
+        if (data) io.sockets.emit('newVote', { id: req.body.targetId });
+        res.send(data);
     });
 });
 
-app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+app.get('/userVoted', function(req, res) {
+    database.readUserVoted({ ip: req.connection.remoteAddress }, function(data) {
+        data = data || false;
+        res.send(data);
+    });
 });
+
+app.get('/topics', function(req, res) {
+    database.readTopics(function(data) {
+        data = data || false;
+        res.json(data);
+    });
+});
+
+console.log('Listening on port 3000.');

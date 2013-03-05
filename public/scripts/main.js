@@ -13,6 +13,7 @@ require.config({
     hm: 'vendor/hm',
     esprima: 'vendor/esprima',
     jquery: 'vendor/jquery.min',
+    jqueryui: 'vendor/jquery-ui.min',
     underscore: 'vendor/lodash.min',
     backbone: 'vendor/backbone-min',
     moment: 'vendor/moment.min',

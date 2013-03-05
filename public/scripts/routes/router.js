@@ -7,7 +7,7 @@ define([
 
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "*actions": "showScoreBoard"
+            "*actions": "showTopicVoting"
         }
     });
     
@@ -15,7 +15,7 @@ define([
         var app_router = new AppRouter;
         var self = this;
 
-        app_router.on('route:showScoreBoard', function () {
+        app_router.on('route:showTopicVoting', function () {
             var homeView = new HomeView().render();
         });
 

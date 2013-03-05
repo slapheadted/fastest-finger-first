@@ -1,10 +1,12 @@
 define(['jquery',
+        'jqueryui',
         'underscore',
         'backbone',
         'router'
-], function($, _, Backbone, Router) {
+], function($, $ui, _, Backbone, Router) {
 
   var initialize = function() {
+      $.ajaxSetup({ cache: false });
       Router.initialize();
   }
 

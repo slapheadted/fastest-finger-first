@@ -4,3 +4,9 @@
 .voteWrapper button.submitVote {
     width: 72px;
 }
+.voteIncremented > td {
+    background-color: #FFF28E !important;
+}
+.text-center {
+    text-align: center !important;
+}
