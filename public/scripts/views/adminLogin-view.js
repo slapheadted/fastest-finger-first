@@ -34,7 +34,7 @@ define([
       loginAdmin: function(ev) {
           ev.preventDefault();
           var self = this;
-          this.socket.emit('loginAdmin", { password: $(self.el).find('input[name=password]').val() });
+          this.socket.emit('loginAdmin', { password: $(self.el).find('input[name=password]').val() });
       }
       
   });
