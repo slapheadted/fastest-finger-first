@@ -24,9 +24,9 @@ server.listen(3000);
 // Configuration
 app.configure(function(){
   app.set("view options", {layout: false});
-  app.use(express.bodyParser());
-  app.use(express.cookieParser());
+  app.use(express.cookieParser('fhJY382YDAWXI'));
   app.use(express.session({secret: 'fhJY382YDAWXI'}));
+  app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/public'));
 });
@@ -48,15 +48,14 @@ app.use(database);
 // HTTP Routes
 app.post('/loginPlayer', function(req, res) {
 
-  var success = true;
+  var error = false;
 
+  // Check to see if a user already exists
   database.readUsers({
     email: req.body.email
   }, function(err, users) {
     if (err) {
-      success = false;
-      console.error(err);
-      res.send({success: false, error: err});
+      error = err;
     } else {
       // Check if user exists, if not, create it
       if (users.length === 0) {
@@ -65,17 +64,18 @@ app.post('/loginPlayer', function(req, res) {
           email: req.body.email
         }, function(err) {
           if (err) {
-            success = false;
-            console.error(err);
+            error = err;
           } else {
-            console.log('Created user', req.body.email);
+            console.log('Created and logged in user', req.body.email);
           }
         });
+      } else {
+        console.log('Logged in user', req.body.email);
       }
 
       // Either way, set a username session key
       req.session.username = req.body.email;
-      res.send({success: success});
+      res.send({success: (error === false), error: error});
 
     }
   });
