@@ -2,11 +2,12 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/topicVoting-view',
   'text!templates/home'
-], function( $, _, Backbone, TopicVotingView, HomeTpl) {
+], function( $, _, Backbone, HomeTpl) {
 
   var HomeView = Backbone.View.extend({
+
+      el: ".container",
   
       template: _.template(HomeTpl),
 
@@ -14,11 +15,26 @@ define([
       },
       
       render: function() {
-          $('.container').html(this.template());
-          var topicVoting = new TopicVotingView();
-          $('.home-right').prepend(topicVoting.el);
+          $(this.el).html(this.template());
           return this;
       },
+      
+      events: {
+          "click input[type=submit]": "loginPlayer"
+      },
+
+      loginPlayer: function(ev) {
+          ev.preventDefault();
+          var self = this;
+          //if (typeof cb !== 'function') throw new Error("Callback must be supplied.");
+          var post = $.post("/loginPlayer", { email: $(self.el).find('input[name=email]').val() });
+          post.done(function( data ) {
+              var result =  data ? true : false;
+              //cb(result); 
+          });
+
+          console.log('test');
+      }
       
   });
 
