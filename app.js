@@ -101,7 +101,7 @@ io.sockets.on('connection', function (socket) {
 
     database.readUsers({
       username: 'admin',
-      password: req.body.password
+      password: data.password
     }, function(err, users) {
       if (err) {
         error = err;
@@ -110,15 +110,11 @@ io.sockets.on('connection', function (socket) {
           error = 'Password does not match';
         } else {
           console.log('Admin logged in');
-          // req.session.username = 'admin';
-          // Hash the username and password as a pseudo-secure admin token
-          // var sha = crypto.createHash('sha1');
-          // sha.update(req.body.username + req.body.password);
-          // req.session.admin = sha.digest('hex');
+          quizMaster.login(socket, 'admin');
         }
       }
 
-      socket.emit('loginAdminResponse', {success: (error === false), error: error, session: req.session});
+      socket.emit('loginAdminResponse', {success: (error === false), error: error});
     });
   });
 
