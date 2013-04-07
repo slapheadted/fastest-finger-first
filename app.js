@@ -25,6 +25,8 @@ server.listen(3000);
 app.configure(function(){
   app.set("view options", {layout: false});
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.session({secret: 'fhJY382YDAWXI'}));
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/public'));
 });
@@ -44,11 +46,37 @@ app.use(database);
 //quizMaster.beginQuiz();
     
 // HTTP Routes
-app.get('/login', function(req, res) {
-    database.readTopics(function(data) {
-        data = data || false;
-        res.json(data);
-    });
+app.post('/loginPlayer', function(req, res) {
+
+  var success = true;
+
+  database.readUsers({
+    email: req.body.email
+  }, function(err, users) {
+    if (err) {
+      success = false;
+    } else {
+      // Check if user exists, if not, create it
+      if (users.length === 0) {
+        // New user logging in
+        database.createUser({
+          email: req.body.email
+        }, function(err) {
+          if (err) {
+            success = false;
+            console.error(err);
+          } else {
+            console.log('Created user', req.body.email);
+          }
+        });
+      }
+
+      // Either way, set a username session key
+      req.session.username = req.body.email;
+    }
+  });
+
+  res.send({success: success});
 });
 
 console.log('Listening on port 3000.');
