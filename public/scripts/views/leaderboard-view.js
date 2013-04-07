@@ -4,8 +4,9 @@ define([
   'socketio',
   'backbone',
   'views/leaderboardRow-view',
+  'views/question-view',
   'text!templates/leaderboard'
-], function( $, _, Socket, Backbone, LeaderboardRowView, LeaderboardTpl) {
+], function( $, _, Socket, Backbone, LeaderboardRowView, QuestionView, LeaderboardTpl) {
 
   var LeaderboardView = Backbone.View.extend({
 
@@ -27,10 +28,14 @@ define([
               self.model = data;
               self.render();
           });
+          this.socket.on('startQuestion', function(data) {
+              var questionView = new QuestionView({ model: data });
+              questionView.render();
+              $(self.el).html(questionView.el);
+          });
       },
       
       renderItem: function(model) {
-          console.log('model', model);
           var leaderboardRowView = new LeaderboardRowView({ model: model });
           leaderboardRowView.render();
           $('.headings').after(leaderboardRowView.el);
