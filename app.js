@@ -55,6 +55,8 @@ app.post('/loginPlayer', function(req, res) {
   }, function(err, users) {
     if (err) {
       success = false;
+      console.error(err);
+      res.send({success: false, error: err});
     } else {
       // Check if user exists, if not, create it
       if (users.length === 0) {
@@ -73,10 +75,11 @@ app.post('/loginPlayer', function(req, res) {
 
       // Either way, set a username session key
       req.session.username = req.body.email;
+      res.send({success: success});
+
     }
   });
 
-  res.send({success: success});
 });
 
 console.log('Listening on port 3000.');
