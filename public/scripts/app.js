@@ -1,9 +1,10 @@
 define(['jquery',
         'jqueryui',
         'underscore',
+        'socketio',
         'backbone',
         'router'
-], function($, $ui, _, Backbone, Router) {
+], function($, $ui, _, Socket, Backbone, Router) {
 
   var initialize = function() {
       $.ajaxSetup({ cache: false });

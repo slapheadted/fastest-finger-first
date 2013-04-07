@@ -1,5 +1,8 @@
 require.config({
   shim: {
+    'socketio': {
+        exports: 'io'
+    },
     underscore: {
       exports: '_'
     },
@@ -17,6 +20,7 @@ require.config({
     underscore: 'vendor/lodash.min',
     backbone: 'vendor/backbone-min',
     moment: 'vendor/moment.min',
+    socketio: '../../socket.io/socket.io',
     router: 'routes/router'
   }
 });

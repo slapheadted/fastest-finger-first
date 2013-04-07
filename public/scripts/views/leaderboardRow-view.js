@@ -2,15 +2,15 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/leaderboard-view',
-  'text!templates/adminLogin'
-], function( $, _, Backbone, LeaderboardView, AdminLoginTpl) {
+  'views/leaderboardRow-view',
+  'text!templates/leaderboard'
+], function( $, _, Backbone, LeaderboardRowView, LeaderboardTpl) {
 
-  var AdminLoginView = Backbone.View.extend({
+  var LeaderboardView = Backbone.View.extend({
 
       el: ".container",
   
-      template: _.template(AdminLoginTpl),
+      template: _.template(LeaderboardTpl),
 
       initialize: function() {
       },
@@ -21,10 +21,10 @@ define([
       },
       
       events: {
-          "click input[type=submit]": "loginAdmin"
+          "click .startQuiz": "startQuiz"
       },
 
-      loginAdmin: function(ev) {
+      startQuiz: function(ev) {
           ev.preventDefault();
           var self = this;
           var post = $.post("/loginAdmin", { password: $(self.el).find('input[name=password]').val() });
@@ -37,6 +37,6 @@ define([
       
   });
 
-  return AdminLoginView;
+  return LeaderboardView;
 
 });

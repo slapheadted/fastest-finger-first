@@ -2,9 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/playerLogin',
   'views/buzzer-view',
-], function( $, _, Backbone, PlayerLoginTpl, BuzzerView) {
+  'text!templates/playerLogin'
+], function( $, _, Backbone, BuzzerView, PlayerLoginTpl) {
 
   var PlayerLoginView = Backbone.View.extend({
 
@@ -27,15 +27,12 @@ define([
       loginPlayer: function(ev) {
           ev.preventDefault();
           var self = this;
-          //if (typeof cb !== 'function') throw new Error("Callback must be supplied.");
           var post = $.post("/loginPlayer", { username: $(self.el).find('input[name=username]').val() });
           post.done(function( data ) {
               if (data.success) {
                   var buzzerView = new BuzzerView().render();
               }
           });
-
-          console.log('test');
       }
       
   });
