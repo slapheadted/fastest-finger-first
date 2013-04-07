@@ -17,7 +17,7 @@ var app = express()
 module.exports.io = io;
 
 // Pull in Quiz Master
-var quizMaster = require('./lib/quizMaster');
+var QuizMaster = require('./lib/quizMaster');
 
 // Initialize server
 server.listen(3000);
@@ -26,7 +26,7 @@ server.listen(3000);
 app.configure(function(){
   app.set("view options", {layout: false});
   app.use(express.cookieParser('fhJY382YDAWXI'));
-  app.use(express.session({secret: 'fhJY382YDAWXI'}));
+  app.use(express.session({cookie: { path: '/', httpOnly: true, expires: false}, secret: 'fhJY382YDAWXI'}));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/public'));
@@ -41,7 +41,14 @@ app.configure('production', function(){
 });
 
 app.use(database);
-//var quizMaster = new quizMaster();
+var quizMaster = new QuizMaster();
+quizMaster.init();
+
+io.sockets.on('connection', function (socket) {
+  socket.on('startQuiz', function (data) {
+    quizMaster.beginQuiz();
+  });
+});
 
 // Quiz: Begin
 //quizMaster.beginQuiz();
@@ -61,7 +68,7 @@ app.post('/loginAdmin', function(req, res) {
         error = 'Password does not match';
       } else {
         console.log('Admin logged in');
-        req.session.username = req.body.username;
+        req.session.username = 'admin';
         // Hash the username and password as a pseudo-secure admin token
         var sha = crypto.createHash('sha1');
         sha.update(req.body.username + req.body.password);
@@ -69,7 +76,7 @@ app.post('/loginAdmin', function(req, res) {
       }
     }
 
-    res.send({success: (error === false), error: error});
+    res.send({success: (error === false), error: error, session: req.session});
   });
 });
 
@@ -102,7 +109,7 @@ app.post('/loginPlayer', function(req, res) {
 
       // Either way, set a username session key
       req.session.username = req.body.username;
-      res.send({success: (error === false), error: error});
+      res.send({success: (error === false), error: error, session: req.session});
 
       // Inform connected clients
       io.sockets.emit('newUser', {
@@ -115,10 +122,21 @@ app.post('/loginPlayer', function(req, res) {
 });
 
 // HTTP API Routes
-app.get('/questions', function(req, res) {
-  database.readQuestions(function(err, questions) {
-    res.send(questions);
-  });
+app.post('/answer', function(req, res) {
+  var error = false;
+  if (!req.session.username) {
+    error = "You are not logged in.";
+  } else {
+    database.answerQuestion(req.body.question, req.body.answer, req.session.username,
+      function(err, question) {
+        if (err) {
+          error = err;
+        }
+
+
+      });
+  }
+  res.send({success: (error === false), error: error, session: req.session});
 });
 
 console.log('Listening on port 3000.');
