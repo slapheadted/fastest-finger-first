@@ -7,7 +7,8 @@ define([
 
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "*actions": "showTopicVoting"
+            "admin": "adminLogin",
+            "*other": "playerLogin"
         }
     });
     
@@ -15,8 +16,13 @@ define([
         var app_router = new AppRouter;
         var self = this;
 
-        app_router.on('route:showTopicVoting', function () {
+        app_router.on('route:playerLogin', function () {
             var homeView = new HomeView().render();
+        });
+
+        app_router.on('route:adminLogin', function () {
+            console.log('you the boss');
+            //var homeView = new HomeView().render();
         });
 
         Backbone.history.start();
