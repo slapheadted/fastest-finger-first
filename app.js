@@ -64,7 +64,7 @@ io.sockets.on('connection', function (socket) {
     quizMaster.disableAnswering();
   });
 
-  socket.on('answer', function(data) {
+  socket.on('lodgedAnswer', function(data) {
     quizMaster.answerQuestion(data.answer, this.username);
   });
 
