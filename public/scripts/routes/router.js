@@ -2,8 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/home-view'
-], function( $, _, Backbone, HomeView) {
+  'views/playerLogin-view',
+  'views/adminLogin-view'
+], function( $, _, Backbone, PlayerLoginView, AdminLoginView) {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
@@ -17,12 +18,11 @@ define([
         var self = this;
 
         app_router.on('route:playerLogin', function () {
-            var homeView = new HomeView().render();
+            var playerLoginView = new PlayerLoginView().render();
         });
 
         app_router.on('route:adminLogin', function () {
-            console.log('you the boss');
-            //var homeView = new HomeView().render();
+            var adminLoginView = new AdminLoginView().render();
         });
 
         Backbone.history.start();

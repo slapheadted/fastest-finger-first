@@ -2,14 +2,14 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/home'
-], function( $, _, Backbone, HomeTpl) {
+  'text!templates/buzzer'
+], function( $, _, Backbone, BuzzerTpl) {
 
-  var HomeView = Backbone.View.extend({
+  var BuzzerView = Backbone.View.extend({
 
       el: ".container",
   
-      template: _.template(HomeTpl),
+      template: _.template(BuzzerTpl),
 
       initialize: function() {
       },
@@ -27,10 +27,11 @@ define([
           ev.preventDefault();
           var self = this;
           //if (typeof cb !== 'function') throw new Error("Callback must be supplied.");
-          var post = $.post("/loginPlayer", { email: $(self.el).find('input[name=email]').val() });
+          var post = $.post("/loginPlayer", { username: $(self.el).find('input[name=username]').val() });
           post.done(function( data ) {
-              var result =  data ? true : false;
-              //cb(result); 
+              if (data.success) {
+                  var buzzerView = new BuzzerView().render();
+              }
           });
 
           console.log('test');
@@ -38,6 +39,6 @@ define([
       
   });
 
-  return HomeView;
+  return BuzzerView;
 
 });
