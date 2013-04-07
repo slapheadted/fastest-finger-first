@@ -1,9 +1,10 @@
 define([
   'jquery',
   'underscore',
+  'socketio',
   'backbone',
   'text!templates/buzzer'
-], function( $, _, Backbone, BuzzerTpl) {
+], function( $, _, Socket, Backbone, BuzzerTpl) {
 
   var BuzzerView = Backbone.View.extend({
 
@@ -12,6 +13,10 @@ define([
       template: _.template(BuzzerTpl),
 
       initialize: function() {
+          this.socket = Socket.connect('http://localhost');
+          this.socket.on('startAnswering', function() {
+              $(self.el).find('answerButton').removeClass('disabled');
+          });
       },
       
       render: function() {
@@ -20,21 +25,11 @@ define([
       },
       
       events: {
-          "click input[type=submit]": "loginPlayer"
+          "click .answerButton": "sendAnswer"
       },
 
-      loginPlayer: function(ev) {
-          ev.preventDefault();
-          var self = this;
-          //if (typeof cb !== 'function') throw new Error("Callback must be supplied.");
-          var post = $.post("/loginPlayer", { username: $(self.el).find('input[name=username]').val() });
-          post.done(function( data ) {
-              if (data.success) {
-                  var buzzerView = new BuzzerView().render();
-              }
-          });
-
-          console.log('test');
+      sendAnswer: function(ev) {
+          this.socket.emit('lodgedAnswer', { answer: $(this.el).find('.answerButton').index(ev.target) });
       }
       
   });

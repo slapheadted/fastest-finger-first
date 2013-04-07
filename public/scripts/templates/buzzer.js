@@ -1,4 +1,6 @@
-<span class="answer A">A</span>
-<span class="answer B">B</span>
-<span class="answer C">C</span>
-<span class="answer D">D</span>
+<div class="buzzerWrapper">
+    <span class="answerButton A">A</span>
+    <span class="answerButton B">B</span>
+    <span class="answerButton C">C</span>
+    <span class="answerButton D">D</span>
+</div>

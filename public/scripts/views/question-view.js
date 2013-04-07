@@ -19,12 +19,12 @@ define([ 'jquery',
       },
       
       events: {
-          "click .startAnswering": "startAnswering"
+          "click .enableAnswering": "enableAnswering"
       },
 
-      startAnswering: function(ev) {
+      enableAnswering: function(ev) {
           ev.preventDefault();
-          this.socket.emit('startAnswering');
+          this.socket.emit('enableAnswering');
       }
       
   });

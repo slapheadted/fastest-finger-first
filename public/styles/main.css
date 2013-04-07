@@ -24,3 +24,24 @@ ul.features li {
 .startQuiz {
     width: 100%;
 }
+.answerButton {
+    width: 48%;
+    /*height: 48%;*/
+    height: 200px;
+    float: left;
+}
+.answerButton.A {
+    background-color: red;
+}
+.answerButton.B {
+    background-color: blue;
+}
+.answerButton.C {
+    background-color: orange;
+}
+.answerButton.D {
+    background-color: green;
+}
+.buzzerWrapper {
+    width: 98%;
+}
