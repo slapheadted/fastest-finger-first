@@ -64,8 +64,11 @@ io.sockets.on('connection', function (socket) {
     quizMaster.disableAnswering();
   });
 
+  socket.on('answer', function(data) {
+    quizMaster.answerQuestion(data.answer, this.username);
+  });
+
   socket.on('disconnect', function() {
-    console.error('discconnnn', this.username);
     quizMaster.logout(this.username);
   });
 
