@@ -21,3 +21,6 @@ ul.features li {
 .text-center {
     text-align: center !important;
 }
+.startQuiz {
+    width: 100%;
+}
