@@ -77,6 +77,11 @@ app.post('/loginPlayer', function(req, res) {
       req.session.username = req.body.email;
       res.send({success: (error === false), error: error});
 
+      // Inform connected clients
+      io.sockets.emit('newUser', {
+          email: req.body.email
+        });
+
     }
   });
 
