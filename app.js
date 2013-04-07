@@ -44,23 +44,7 @@ app.use(database);
 //quizMaster.beginQuiz();
     
 // HTTP Routes
-app.post('/vote', function(req, res) {
-    req.body.ip = req.connection.remoteAddress;
-    database.createVote(req.body, function(data) {
-        data = data || false;
-        if (data) io.sockets.emit('newVote', { id: req.body.targetId });
-        res.send(data);
-    });
-});
-
-app.get('/userVoted', function(req, res) {
-    database.readUserVoted({ ip: req.connection.remoteAddress }, function(data) {
-        data = data || false;
-        res.send(data);
-    });
-});
-
-app.get('/topics', function(req, res) {
+app.get('/login', function(req, res) {
     database.readTopics(function(data) {
         data = data || false;
         res.json(data);
