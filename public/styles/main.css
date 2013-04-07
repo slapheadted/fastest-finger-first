@@ -45,3 +45,6 @@ ul.features li {
 .buzzerWrapper {
     width: 98%;
 }
+.buzzerWrapper.disabled {
+    opacity: 0.3;
+}

@@ -1,4 +1,4 @@
-<div class="buzzerWrapper">
+<div class="buzzerWrapper disabled">
     <span class="answerButton A">A</span>
     <span class="answerButton B">B</span>
     <span class="answerButton C">C</span>

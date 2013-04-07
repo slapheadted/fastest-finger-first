@@ -13,9 +13,10 @@ define([
       template: _.template(BuzzerTpl),
 
       initialize: function() {
+          var self = this;
           this.socket = Socket.connect('http://localhost');
           this.socket.on('startAnswering', function() {
-              $(self.el).find('answerButton').removeClass('disabled');
+              $(self.el).find('.buzzerWrapper').removeClass('disabled');
           });
       },
       
@@ -30,6 +31,7 @@ define([
 
       sendAnswer: function(ev) {
           this.socket.emit('lodgedAnswer', { answer: $(this.el).find('.answerButton').index(ev.target) });
+          $(this.el).find('.buzzerWrapper').addClass('disabled');
       }
       
   });
