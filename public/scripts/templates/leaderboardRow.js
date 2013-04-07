@@ -1,1 +1,1 @@
-<td><%= model.get('name') %></td><td class="text-center"><%= model.get('voteCount') %></td><td class="text-center"><input type="radio" name="vote" value="<% model._id %>" <% console.log('canVote', model.get('canVote')); if (!model.get('canVote')) { %><% if (model.get('currentVote')) { %> checked="checked" <% } %> disabled <% } %> /></td>
+<td><%= model.position %></td><td><%= model.username %></td><td class="text-center"><%= model.points %></td>

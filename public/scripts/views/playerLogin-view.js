@@ -1,10 +1,11 @@
 define([
   'jquery',
   'underscore',
+  'socketio',
   'backbone',
   'views/buzzer-view',
   'text!templates/playerLogin'
-], function( $, _, Backbone, BuzzerView, PlayerLoginTpl) {
+], function( $, _, Socket, Backbone, BuzzerView, PlayerLoginTpl) {
 
   var PlayerLoginView = Backbone.View.extend({
 
@@ -13,6 +14,12 @@ define([
       template: _.template(PlayerLoginTpl),
 
       initialize: function() {
+          this.socket = Socket.connect('http://192.168.0.8');
+          this.socket.on('loginPlayerResponse', function( data ) {
+              if (data.success) {
+                  var buzzerView = new BuzzerView().render();
+              }
+          });
       },
       
       render: function() {
@@ -25,14 +32,9 @@ define([
       },
 
       loginPlayer: function(ev) {
-          ev.preventDefault();
           var self = this;
-          var post = $.post("/loginPlayer", { username: $(self.el).find('input[name=username]').val() });
-          post.done(function( data ) {
-              if (data.success) {
-                  var buzzerView = new BuzzerView().render();
-              }
-          });
+          ev.preventDefault();
+          this.socket.emit('loginPlayer', { username: $(self.el).find('input[name=username]').val() });
       }
       
   });

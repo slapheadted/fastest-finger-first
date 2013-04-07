@@ -2,41 +2,24 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/leaderboardRow-view',
-  'text!templates/leaderboard'
-], function( $, _, Backbone, LeaderboardRowView, LeaderboardTpl) {
+  'text!templates/leaderboardRow'
+], function( $, _, Backbone, LeaderboardRowTpl) {
 
-  var LeaderboardView = Backbone.View.extend({
+  var LeaderboardRowView = Backbone.View.extend({
+      tagName: "tr",
 
-      el: ".container",
-  
-      template: _.template(LeaderboardTpl),
+      template: _.template(LeaderboardRowTpl),
 
       initialize: function() {
       },
       
       render: function() {
-          $(this.el).html(this.template());
+          $(this.el).html(this.template({ model: this.model }));
           return this;
       },
       
-      events: {
-          "click .startQuiz": "startQuiz"
-      },
-
-      startQuiz: function(ev) {
-          ev.preventDefault();
-          var self = this;
-          var post = $.post("/loginAdmin", { password: $(self.el).find('input[name=password]').val() });
-          post.done(function( data ) {
-              if (data.success) {
-                  var leaderboardView = new LeaderboardView().render();
-              }
-          });
-      }
-      
   });
 
-  return LeaderboardView;
+  return LeaderboardRowView;
 
 });

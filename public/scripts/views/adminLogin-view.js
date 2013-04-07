@@ -1,10 +1,11 @@
 define([
   'jquery',
   'underscore',
+  'socketio',
   'backbone',
   'views/leaderboard-view',
   'text!templates/adminLogin'
-], function( $, _, Backbone, LeaderboardView, AdminLoginTpl) {
+], function( $, _, Socket, Backbone, LeaderboardView, AdminLoginTpl) {
 
   var AdminLoginView = Backbone.View.extend({
 
@@ -13,6 +14,12 @@ define([
       template: _.template(AdminLoginTpl),
 
       initialize: function() {
+          this.socket = Socket.connect('http://192.168.0.8');
+          this.socket.on('loginAdminResponse', function( data ) {
+              if (data.success) {
+                  var leaderboardView = new LeaderboardView().render();
+              }
+          });
       },
       
       render: function() {
@@ -27,12 +34,7 @@ define([
       loginAdmin: function(ev) {
           ev.preventDefault();
           var self = this;
-          var post = $.post("/loginAdmin", { password: $(self.el).find('input[name=password]').val() });
-          post.done(function( data ) {
-              if (data.success) {
-                  var leaderboardView = new LeaderboardView().render();
-              }
-          });
+          this.socket.emit('loginAdmin", { password: $(self.el).find('input[name=password]').val() });
       }
       
   });
