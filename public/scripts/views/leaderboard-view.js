@@ -39,7 +39,7 @@ define([
       render: function() {
           this.$el.html(this.template());
           // Aargh! This is not good use of BB, purely hack.
-          //this.collection.sort(function(a, b) { return a - b });
+          this.collection.sort(function(a, b) { return a.position + b.position });
           this.collection.forEach(this.renderItem);
           return this;
       },
