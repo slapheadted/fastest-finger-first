@@ -17,6 +17,7 @@ define([
       initialize: function() { 
           var self = this;
           var topics = new TopicsCollection();
+          this.socket = io.connect("http://192.168.0.8:3000/");
           topics.fetch({
               success: function() {
                   self.collection = topics;
@@ -44,13 +45,18 @@ define([
       },
       
       events: {
-          "click .submitVote": "vote"
+          "click .submitVote": "vote",
+          "click .hit": "pushToQueue"
       },
 
       vote: function(e) {
           e.preventDefault();
           channel.trigger('voteLodged');
-      } 
+      }, 
+
+      pushToQueue: function(e) {
+          this.socket.emit('pushAnswer', { test: "123" });
+      }  
       
   });
 

@@ -12,10 +12,16 @@ var app = express()
   , routes = require('./routes')
   , database = require('./lib/database');
 
+// Make Socket.IO available in modules
+module.exports.io = io;
+
+// Pull in Quiz Master
+var quizMaster = require('./lib/quizMaster');
+
+// Initialize server
 server.listen(3000);
 
 // Configuration
-
 app.configure(function(){
   app.set("view options", {layout: false});
   app.use(express.bodyParser());
@@ -32,8 +38,12 @@ app.configure('production', function(){
 });
 
 app.use(database);
+//var quizMaster = new quizMaster();
 
-// Routes
+// Quiz: Begin
+//quizMaster.beginQuiz();
+    
+// HTTP Routes
 app.post('/vote', function(req, res) {
     req.body.ip = req.connection.remoteAddress;
     database.createVote(req.body, function(data) {

@@ -10,15 +10,15 @@ define([
   
       template: _.template(HomeTpl),
 
-      initialize: function() { 
+      initialize: function() {
       },
       
       render: function() {
           $('.container').html(this.template());
           var topicVoting = new TopicVotingView();
-          $('.nextTalk').after(topicVoting.el);
+          $('.home-right').prepend(topicVoting.el);
           return this;
-      }
+      },
       
   });
 

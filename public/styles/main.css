@@ -1,8 +1,19 @@
+h1.page-title {
+    margin-bottom: 40px;
+}
+ul.features {
+    list-style-type: none;
+    margin-left: 0;
+}
+ul.features li {
+    line-height: 27px;
+    font-size: 16px; 
+}
 .voteWrapper th.vote {
     width: 60px;
 }
 .voteWrapper button.submitVote {
-    width: 72px;
+    width: 100%;
 }
 .voteIncremented > td {
     background-color: #FFF28E !important;
