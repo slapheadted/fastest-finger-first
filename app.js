@@ -30,7 +30,7 @@ module.exports.io = io;
 var QuizMaster = require('./lib/quizMaster');
 
 // Initialize server
-server.listen(3000);
+server.listen(3000, '192.168.0.8');
 
 // Configuration
 app.configure(function(){
