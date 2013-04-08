@@ -18,6 +18,9 @@ define([
           this.socket.on('startAnswering', function() {
               $(self.el).find('.buzzerWrapper').removeClass('disabled');
           });
+          this.socket.on('stopAnswering', function() {
+              $(self.el).find('.buzzerWrapper').addClass('disabled');
+          });
       },
       
       render: function() {

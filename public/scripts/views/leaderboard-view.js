@@ -28,6 +28,10 @@ define([
               self.model = data;
               self.render();
           });
+          this.socket.on('stopAnswering', function(data) {
+              self.model = data;
+              self.render();
+          });
           this.socket.on('startQuestion', function(data) {
               var questionView = new QuestionView({ model: data });
               questionView.render();
