@@ -24,6 +24,9 @@ ul.features li {
 .startQuiz {
     width: 100%;
 }
+.enableAnswering {
+    display: block;
+}
 .answerButton {
     width: 48%;
     /*height: 48%;*/
@@ -47,4 +50,11 @@ ul.features li {
 }
 .buzzerWrapper.disabled {
     opacity: 0.3;
+}
+.displayAnswerWrapper {
+    width: 80%;
+}
+.displayAnswer {
+    width: 48%;
+    height: auto;
 }

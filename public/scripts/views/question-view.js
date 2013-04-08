@@ -25,6 +25,7 @@ define([ 'jquery',
       enableAnswering: function(ev) {
           ev.preventDefault();
           this.socket.emit('enableAnswering');
+          $(this.el).find('.displayAnswerWrapper').removeClass('hide');
       }
       
   });
