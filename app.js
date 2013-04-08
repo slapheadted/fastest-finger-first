@@ -12,17 +12,18 @@ var app = express()
   , io = io.listen(server)
   , routes = require('./routes')
   , database = require('./lib/database');
-/*
+
+// Prioritize XHR long-polling over WebSockets
 io.configure(function(){
-          io.set('transports', [
-                         'xhr-polling'
-                  , 'websocket'
-                    , 'flashsocket'
-                      , 'htmlfile'
-                          , 'jsonp-polling'
-                            ]);
+  io.set('transports', [
+    'xhr-polling'
+    , 'websocket'
+    , 'flashsocket'
+    , 'htmlfile'
+    , 'jsonp-polling'
+  ]);
 });
-*/
+
 // Make Socket.IO available in modules
 module.exports.io = io;
 
@@ -30,7 +31,7 @@ module.exports.io = io;
 var QuizMaster = require('./lib/quizMaster');
 
 // Initialize server
-server.listen(3000, '192.168.0.8');
+server.listen(3000);
 
 // Configuration
 app.configure(function(){
