@@ -10,7 +10,7 @@ define([ 'jquery',
       template: _.template(QuestionTpl),
 
       initialize: function() {
-          this.socket = Socket.connect('http://192.168.0.8:3000/');
+          this.socket = Socket.connect('http://localhost/');
       },
       
       render: function() {

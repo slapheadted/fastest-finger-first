@@ -23,13 +23,13 @@ define([
               { username: "Chris", position: 1, points: 20 },
               { username: "Craig", position: 2, points: 19 }
           ];
-          this.socket = Socket.connect('http://192.168.0.8:3000/');
+          this.socket = Socket.connect('http://localhost/');
           this.socket.on('leaderboardChange', function(data) {
-              self.model = data;
+              self.collection = data;
               self.render();
           });
           this.socket.on('stopAnswering', function(data) {
-              self.model = data;
+              self.collection = data;
               self.render();
           });
           this.socket.on('startQuestion', function(data) {
