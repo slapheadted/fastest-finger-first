@@ -14,7 +14,7 @@ define([
       template: _.template(PlayerLoginTpl),
 
       initialize: function() {
-          this.socket = Socket.connect('http://localhost');
+          this.socket = Socket.connect('http://192.168.0.8:3000/');
           this.socket.on('loginPlayerResponse', function( data ) {
               if (data.success) {
                   var buzzerView = new BuzzerView().render();

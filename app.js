@@ -12,7 +12,17 @@ var app = express()
   , io = io.listen(server)
   , routes = require('./routes')
   , database = require('./lib/database');
-
+/*
+io.configure(function(){
+          io.set('transports', [
+                         'xhr-polling'
+                  , 'websocket'
+                    , 'flashsocket'
+                      , 'htmlfile'
+                          , 'jsonp-polling'
+                            ]);
+});
+*/
 // Make Socket.IO available in modules
 module.exports.io = io;
 
@@ -45,6 +55,7 @@ var quizMaster = new QuizMaster();
 quizMaster.init();
 
 io.sockets.on('connection', function (socket) {
+    console.log('DUDE');
   socket.on('startQuiz', function (data) {
     quizMaster.beginQuiz();
   });

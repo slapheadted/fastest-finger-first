@@ -23,7 +23,7 @@ define([
               { username: "Chris", position: 1, points: 20 },
               { username: "Craig", position: 2, points: 19 }
           ];
-          this.socket = Socket.connect('http://localhost');
+          this.socket = Socket.connect('http://192.168.0.8:3000/');
           this.socket.on('leaderboardChange', function(data) {
               self.model = data;
               self.render();

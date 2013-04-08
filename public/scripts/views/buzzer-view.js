@@ -14,7 +14,7 @@ define([
 
       initialize: function() {
           var self = this;
-          this.socket = Socket.connect('http://localhost');
+          this.socket = Socket.connect('http://192.168.0.8:3000/');
           this.socket.on('startAnswering', function() {
               $(self.el).find('.buzzerWrapper').removeClass('disabled');
           });
