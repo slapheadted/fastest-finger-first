@@ -94,34 +94,25 @@ io.sockets.on('connection', function (socket) {
       if (err) {
         error = err;
       } else {
-        // Check if user exists, if not, create it
-        if (users.length === 0) {
-          // New user logging in
-          database.createUser({
-            username: data.username
-          }, function(err) {
-            if (err) {
-              error = err;
-            } else {
-              console.log('Created and logged in user', data.username);
-            }
+        // New user logging in
+        database.createUser({
+          username: data.username
+        }, function(err) {
+          console.log('-------------------------------', err);
+          if (err) {
+            error = err;
+          } else {
+            console.log('Created and logged in user', data.username);
+          }
 
-            // New user, log them in
-            if (!error) {
-              quizMaster.login(socket, data.username);
-            }
-
-            socket.emit('loginPlayerResponse', {success: (error === false), error: error});
-
-          });
-        } else {
-          console.log('Logged in user', data.username);
+          // New user, log them in
           if (!error) {
             quizMaster.login(socket, data.username);
           }
 
-          socket.emit('loginPlayerResponse', {success: (error === false), error: error});
-        }
+          socket.emit('loginPlayerResponse', {success: (error === false), error: error, username: data.username});
+
+        });
 
       }
     });
