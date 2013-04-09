@@ -105,16 +105,24 @@ io.sockets.on('connection', function (socket) {
             } else {
               console.log('Created and logged in user', data.username);
             }
+
+            // New user, log them in
+            if (!error) {
+              quizMaster.login(socket, data.username);
+            }
+
+            socket.emit('loginPlayerResponse', {success: (error === false), error: error});
+
           });
         } else {
           console.log('Logged in user', data.username);
+          if (!error) {
+            quizMaster.login(socket, data.username);
+          }
+
+          socket.emit('loginPlayerResponse', {success: (error === false), error: error});
         }
 
-        if (!error) {
-          quizMaster.login(socket, data.username);
-        }
-
-        socket.emit('loginPlayerResponse', {success: (error === false), error: error});
       }
     });
   });
