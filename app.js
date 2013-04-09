@@ -69,14 +69,16 @@ io.sockets.on('connection', function (socket) {
 
   // Listen for new users on frontend
   socket.on('newUser', function(data) {
-    socket.username = username;
+    // Inform QuizMaster of the user login
     quizMaster.login(socket, data.username);
   });
 
+  // Simple proxy, QuizMaster re-emits the event globally
   socket.on('enableAnswering', function() {
     quizMaster.enableAnswering();
   });
 
+  // Simple proxy, QuizMaster 
   socket.on('disableAnswering', function() {
     quizMaster.disableAnswering();
   });
