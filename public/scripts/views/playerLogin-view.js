@@ -43,7 +43,6 @@ define([
       },
       
       duplicateUserError: function(ev) {
-          alert('Duplicate user name! Choose another');
           $(this.el).find('.duplicateUsername').removeClass('hide');
       }
   });
