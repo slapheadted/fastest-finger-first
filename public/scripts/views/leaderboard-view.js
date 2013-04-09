@@ -20,7 +20,7 @@ define([
           var self = this;
           this.collection = [];
           this.socket = Socket.connect('http://localhost/');
-          this.socket.on('leaderboardChange', function(data) {
+          this.socket.on('newUser', function(data) {
               self.collection = data;
               self.render();
           });
