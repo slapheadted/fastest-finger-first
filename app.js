@@ -55,16 +55,21 @@ app.use(database);
 var quizMaster = new QuizMaster();
 quizMaster.init();
 
+
+// For each socket connection, listen to events from them
+// We store the username on the socket for convenience later on
 io.sockets.on('connection', function (socket) {
-    console.log('DUDE');
   socket.on('startQuiz', function (data) {
     quizMaster.beginQuiz();
   });
 
+
+  // Users don't have a username until they log in
   socket.username = false;
 
   // Listen for new users on frontend
   socket.on('newUser', function(data) {
+    socket.username = username;
     quizMaster.login(socket, data.username);
   });
 
