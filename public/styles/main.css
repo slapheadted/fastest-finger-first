@@ -58,3 +58,7 @@ ul.features li {
     width: 48%;
     height: auto;
 }
+.duplicateUsername {
+    color: red;
+    font-weight: bold;
+}

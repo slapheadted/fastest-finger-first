@@ -17,6 +17,7 @@ define([
           var self = this;
           this.socket = Socket.connect('http://localhost/');
           this.socket.on('loginPlayerResponse', function( data ) {
+              console.log('data', data);
               if (data.success) {
                   var buzzerView = new BuzzerView().render();
               } else {
@@ -42,6 +43,7 @@ define([
       
       duplicateUserError: function(ev) {
           alert('Duplicate user name! Choose another');
+          $(this.el).find('.duplicateUsername').removeClass('hide');
       }
   });
 
