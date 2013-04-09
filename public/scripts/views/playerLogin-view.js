@@ -14,10 +14,13 @@ define([
       template: _.template(PlayerLoginTpl),
 
       initialize: function() {
+          var self = this;
           this.socket = Socket.connect('http://localhost/');
           this.socket.on('loginPlayerResponse', function( data ) {
               if (data.success) {
                   var buzzerView = new BuzzerView().render();
+              } else {
+                  self.duplicateUserError();
               }
           });
       },
@@ -35,8 +38,11 @@ define([
           var self = this;
           ev.preventDefault();
           this.socket.emit('loginPlayer', { username: $(self.el).find('input[name=username]').val() });
-      }
+      },
       
+      duplicateUserError: function(ev) {
+          alert('Duplicate user name! Choose another');
+      }
   });
 
   return PlayerLoginView;
