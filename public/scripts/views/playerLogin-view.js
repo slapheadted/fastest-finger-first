@@ -17,11 +17,12 @@ define([
           var self = this;
           this.socket = Socket.connect('http://localhost/');
           this.socket.on('loginPlayerResponse', function( data ) {
-              console.log('data', data);
-              if (data.success) {
-                  var buzzerView = new BuzzerView().render();
-              } else {
-                  self.duplicateUserError();
+              if (data.username !== $(self.el).find('input[name=username]').val()) {
+                  if (data.success) {
+                      var buzzerView = new BuzzerView().render();
+                  } else {
+                      self.duplicateUserError();
+                  }
               }
           });
       },

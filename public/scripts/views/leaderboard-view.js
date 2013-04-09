@@ -19,10 +19,6 @@ define([
           // We didn't have time to implement proper socket-to-model
           var self = this;
           this.collection = [];
-          this.collection = [
-              { username: "Chris", position: 1, points: 20 },
-              { username: "Craig", position: 2, points: 19 }
-          ];
           this.socket = Socket.connect('http://localhost/');
           this.socket.on('leaderboardChange', function(data) {
               self.collection = data;
