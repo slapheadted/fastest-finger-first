@@ -19,15 +19,18 @@ define([
           // We didn't have time to implement proper socket-to-model
           var self = this;
           this.collection = [];
-          this.socket = Socket.connect('http://localhost/');
+          this.socket = Socket.connect('http://192.168.0.6:3000/');
           this.socket.on('newUser', function(data) {
-              self.collection = data;
-              self.render();
+              if (!data.quizStarted) {
+                  self.collection = data;
+                  self.render();
+              }
           });
           this.socket.on('stopAnswering', function(data) {
-              console.log('data', data);
-              self.collection = data;
-              self.render();
+              setTimeout(function(){
+                  self.collection = data;
+                  self.render();
+              }, 6000);
           });
           this.socket.on('endQuiz', function(data) {
               self.collection = data;

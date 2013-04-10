@@ -15,14 +15,17 @@ define([
 
       initialize: function() {
           var self = this;
-          this.socket = Socket.connect('http://localhost/');
+          this.socket = Socket.connect('http://192.168.0.6:3000/');
           this.socket.on('startAnswering', function() {
               $(self.el).find('.buzzerWrapper').removeClass('disabled');
           });
           this.socket.on('playerRoundSummary', function(data) {
+              console.log('data', data);
               var buzzerWrapper = $(self.el).find('.buzzerWrapper');
               buzzerWrapper.addClass('disabled').find('.displayAnswer').eq(data.correct).addClass('correctAnswer');
-              var playerRoundSummary = new PlayerRoundSummaryView({ model: data}).render();
+              setTimeout(function() {
+                  var playerRoundSummary = new PlayerRoundSummaryView({ model: data}).render();
+              }, 3000);
           });
           this.socket.on('restoreDefault', function() {
               self.render();

@@ -14,7 +14,7 @@ define([
       template: _.template(AdminLoginTpl),
 
       initialize: function() {
-          this.socket = Socket.connect('http://localhost/');
+          this.socket = Socket.connect('http://192.168.0.6:3000/');
           this.socket.on('loginAdminResponse', function( data ) {
               if (data.success) {
                   var leaderboardView = new LeaderboardView().render();
