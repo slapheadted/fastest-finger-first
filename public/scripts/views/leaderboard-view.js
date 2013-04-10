@@ -25,6 +25,11 @@ define([
               self.render();
           });
           this.socket.on('stopAnswering', function(data) {
+              console.log('data', data);
+              self.collection = data;
+              self.render();
+          });
+          this.socket.on('endQuiz', function(data) {
               self.collection = data;
               self.render();
           });

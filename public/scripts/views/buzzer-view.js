@@ -3,8 +3,9 @@ define([
   'underscore',
   'socketio',
   'backbone',
+  'views/playerRoundSummary-view',
   'text!templates/buzzer'
-], function( $, _, Socket, Backbone, BuzzerTpl) {
+], function( $, _, Socket, Backbone, PlayerRoundSummaryView, BuzzerTpl) {
 
   var BuzzerView = Backbone.View.extend({
 
@@ -18,8 +19,14 @@ define([
           this.socket.on('startAnswering', function() {
               $(self.el).find('.buzzerWrapper').removeClass('disabled');
           });
-          this.socket.on('stopAnswering', function() {
-              $(self.el).find('.buzzerWrapper').addClass('disabled');
+          this.socket.on('playerRoundSummary', function(data) {
+              console.log('playerRoundSummary data', data);
+              var buzzerWrapper = $(self.el).find('.buzzerWrapper');
+              buzzerWrapper.addClass('disabled').find('.displayAnswer').eq(data.correct).addClass('correctAnswer');
+              setTimeout(function() {
+                  console.log('fire');
+                  var playerRoundSummary = new PlayerRoundSummaryView({ model: data }).render();
+              }, 4000);
           });
       },
       
