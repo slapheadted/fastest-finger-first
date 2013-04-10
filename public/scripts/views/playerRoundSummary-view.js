@@ -3,9 +3,8 @@ define([
   'underscore',
   'socketio',
   'backbone',
-  'views/buzzer-view',
   'text!templates/playerRoundSummary'
-], function( $, _, Socket, Backbone, BuzzerView, PlayerRoundSummaryTpl) {
+], function( $, _, Socket, Backbone, PlayerRoundSummaryTpl) {
 
   var PlayerRoundSummaryView = Backbone.View.extend({
 
@@ -18,9 +17,6 @@ define([
       
       render: function() {
           $(this.el).html(this.template({ model: this.model }));
-          setTimeout(function() {
-              var buzzerView = new BuzzerView().render();
-          }, 3000);
           return this;
       },
 

@@ -20,13 +20,12 @@ define([
               $(self.el).find('.buzzerWrapper').removeClass('disabled');
           });
           this.socket.on('playerRoundSummary', function(data) {
-              console.log('playerRoundSummary data', data);
               var buzzerWrapper = $(self.el).find('.buzzerWrapper');
               buzzerWrapper.addClass('disabled').find('.displayAnswer').eq(data.correct).addClass('correctAnswer');
-              setTimeout(function() {
-                  console.log('fire');
-                  var playerRoundSummary = new PlayerRoundSummaryView({ model: data }).render();
-              }, 4000);
+              var playerRoundSummary = new PlayerRoundSummaryView({ model: data}).render();
+          });
+          this.socket.on('restoreDefault', function() {
+              self.render();
           });
       },
       
