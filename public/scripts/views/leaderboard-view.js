@@ -19,22 +19,16 @@ define([
           // We didn't have time to implement proper socket-to-model
           var self = this;
           this.collection = [];
-          this.socket = Socket.connect('http://192.168.0.6:3000/');
+          this.socket = Socket.connect('http://192.168.0.5:3000/');
           this.socket.on('newUser', function(data) {
-              if (!data.quizStarted) {
+              if (!data[0].quizStarted) {
                   self.collection = data;
                   self.render();
               }
           });
-          this.socket.on('stopAnswering', function(data) {
-              setTimeout(function(){
+          this.socket.on('showLeaderboard', function(data) {
                   self.collection = data;
                   self.render();
-              }, 6000);
-          });
-          this.socket.on('endQuiz', function(data) {
-              self.collection = data;
-              self.render();
           });
           this.socket.on('startQuestion', function(data) {
               var questionView = new QuestionView({ model: data });
@@ -47,12 +41,13 @@ define([
           var leaderboardRowView = new LeaderboardRowView({ model: model });
           leaderboardRowView.render();
           $('.headings').after(leaderboardRowView.el);
+          this.position++;
       },
 
       render: function() {
           this.$el.html(this.template());
           // Aargh! This is not good use of BB, purely hack.
-          this.collection.sort(function(a, b) { return a.position + b.position });
+          //this.collection.sort(function(a, b) { return a.position + b.position });
           this.collection.forEach(this.renderItem);
           return this;
       },

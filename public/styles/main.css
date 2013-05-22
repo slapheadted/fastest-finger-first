@@ -1,3 +1,6 @@
+.container {
+    width: 90%;
+}
 h1.page-title {
     margin-bottom: 40px;
 }
@@ -24,14 +27,14 @@ ul.features li {
 .startQuiz {
     width: 100%;
 }
-.enableAnswering {
-    display: block;
+.enableAnswering, .next {
+    width: 100%;
 }
 .answerButton {
     width: 48%;
-    /*height: 48%;*/
-    height: 200px;
+    height: 400px;
     float: left;
+    margin: 1%;
 }
 .answerButton.A {
     background-color: red;
@@ -46,17 +49,15 @@ ul.features li {
     background-color: green;
 }
 .buzzerWrapper {
-    width: 98%;
 }
 .buzzerWrapper.disabled {
     opacity: 0.3;
 }
 .displayAnswerWrapper {
-    width: 80%;
+    text-align: center;
 }
 .displayAnswer {
-    width: 48%;
-    height: auto;
+    width: 400px;
 }
 .duplicateUsername {
     color: red;

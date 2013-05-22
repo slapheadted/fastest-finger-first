@@ -16,12 +16,14 @@ var app = express()
 // Prioritize XHR long-polling over WebSockets
 io.configure(function(){
   io.set('transports', [
-    'xhr-polling'
+     'xhr-polling'
     , 'websocket'
     , 'flashsocket'
     , 'htmlfile'
     , 'jsonp-polling'
   ]);
+  // Jesus Christ this couldn't have saved our arses any more!
+  io.set('close timeout', 60*60*24); // 24h time out
 });
 
 // Make Socket.IO available in modules

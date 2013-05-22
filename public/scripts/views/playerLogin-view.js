@@ -15,7 +15,7 @@ define([
 
       initialize: function() {
           var self = this;
-          this.socket = Socket.connect('http://192.168.0.6:3000/');
+          this.socket = Socket.connect('http://192.168.0.5:3000/');
           this.socket.on('loginPlayerResponse', function( data ) {
               if (data.username === $(self.el).find('input[name=username]').val()) {
                   if (data.success) {
